@@ -1,3 +1,4 @@
+import io.github.pixee.security.BoundedLineReader;
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -43,7 +44,7 @@ class WritingThread extends Thread {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
             String input;
-            while ((input = keyboardReader.readLine()) != null) {
+            while ((input = BoundedLineReader.readLine(keyboardReader, 5_000_000)) != null) {
                 out.println(input);
 
                 // If the message is "transfer filename", transfer the file
@@ -97,7 +98,7 @@ class ReadingThread extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String message;
-            while ((message = in.readLine()) != null) {
+            while ((message = BoundedLineReader.readLine(in, 5_000_000)) != null) {
                 System.out.println("Received: " + message);
 
                 // If the message is "transfer filename", receive the file
