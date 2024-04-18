@@ -15,6 +15,7 @@ public class SecureChatProgram {
     public static void main(String[] args) {
         try {
             // Initialize the server socket
+            System.out.println("Alice is Typing");
             System.out.println("Waiting for connection...");
             ServerSocket serverSocket = new ServerSocket(0);
             int port = serverSocket.getLocalPort();

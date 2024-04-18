@@ -17,6 +17,7 @@ public class SecureChatProgramEnd {
     public static void main(String[] args) {
         try {
             // Create a server socket
+            System.out.println("Bob is Typing");
             System.out.println("Waiting for connection..."); // Notify that the server is waiting for connections
             ServerSocket serverSocket = new ServerSocket(0); // Create a server socket with an available port
             int port = serverSocket.getLocalPort(); // Get the local port number of the server
