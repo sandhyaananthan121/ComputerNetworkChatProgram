@@ -20,7 +20,7 @@ public class SecureChatProgram {
             int port = serverSocket.getLocalPort();
             System.out.println("Server started on port: " + port);
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the port to connect: ");
+            System.out.print("Enter the port to connect: ");
             port = scanner.nextInt();
 
             // Start reading thread
