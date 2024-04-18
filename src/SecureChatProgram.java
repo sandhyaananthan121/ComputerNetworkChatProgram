@@ -1,3 +1,6 @@
+// Computer Networks CNT5106 Project 3
+// By: Sandhya Ananthan UFID: 10953582 & Shreya Avadhuta UFID: 81198951
+
 import java.io.*;  
 import java.net.*;  // Importing necessary packages for file operations and networking
 import java.util.Scanner;  // Importing Scanner class for user input
