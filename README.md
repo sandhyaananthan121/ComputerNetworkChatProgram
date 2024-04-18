@@ -5,7 +5,7 @@ Additionally, the main thread creates a ServerSocket, prints out the port number
 
 Steps to run project:
 
-1. pen two terminal windows.
+1. Open two terminal windows.
 2. Navigate to the directory containing your Java source files using the command 'cd src'.
 3. In the first terminal, run 'java SecureChatProgram'.
 4. In the second terminal, run 'java SecureChatProgramEnd'.
