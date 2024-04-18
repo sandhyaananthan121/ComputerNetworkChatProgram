@@ -22,7 +22,7 @@ public class SecureChatProgramEnd {
             int port = serverSocket.getLocalPort(); // Get the local port number of the server
             System.out.println("Server started on port: " + port); // Display the port number the server is running on
             Scanner scanner = new Scanner(System.in); // Create a scanner object for user input
-            System.out.println("Enter the port to connect: "); // Prompt the user to enter the port to connect
+            System.out.print("Enter the port to connect: "); // Prompt the user to enter the port to connect
             port = scanner.nextInt(); // Read the port number entered by the user
 
             // Start reading thread
