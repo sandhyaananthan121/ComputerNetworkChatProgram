@@ -7,6 +7,8 @@ import java.util.Scanner;
  * It allows users to communicate securely and exchange files.
  */
 public class SecureChatProgram {
+    private static volatile boolean shouldExit = false;
+
     /**
      * The main method of the program.
      * It initializes the server socket, prompts the user to enter the port number,
@@ -15,8 +17,8 @@ public class SecureChatProgram {
     public static void main(String[] args) {
         try {
             // Initialize the server socket
-            System.out.println("Alice is Typing");
-            System.out.println("Waiting for connection...");
+            String name = args[0];
+            System.out.println(name + " is Typing\nWaiting for connection...");
             ServerSocket serverSocket = new ServerSocket(0);
             int port = serverSocket.getLocalPort();
             System.out.println("Server started on port: " + port);
@@ -31,10 +33,16 @@ public class SecureChatProgram {
             // Start writing thread
             WritingThread writingThread = new WritingThread(port);
             writingThread.start();
-        } catch (IOException e) {
+
+            // Wait for both threads to finish
+            readingThread.join();
+            writingThread.join();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
+
+
 }
 
 /**
@@ -57,31 +65,41 @@ class WritingThread extends Thread {
      * files.
      */
     public void run() {
-        try {
-            // Connect to the specified port
-            Socket socket = new Socket("localhost", port);
-            System.out.println("Connected to port: " + port);
+        boolean connected = false;
+        while (!connected) {
+            try {
+                // Connect to the specified port
+                Socket socket = new Socket("localhost", port);
+                System.out.println("Connected to port: " + port);
+                connected = true;
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-            String input;
-            while ((input = reader.readLine()) != null) {
-                writer.println(input);
+                String input;
 
-                // If the message is "transfer filename", initiate file transfer
-                if (input.startsWith("transfer ")) {
-                    String filename = input.substring(9);
-                    File_Transfer(filename, socket);
+                while ((input = reader.readLine()) != null) {
+                    writer.println(input);
+
+                    // If the message is "transfer filename", initiate file transfer
+                    if (input.startsWith("transfer ")) {
+                        String filename = input.substring(9);
+                        File_Transfer(filename, socket);
+                    }
+                    if (input.equalsIgnoreCase("quit")) {
+                        System.exit(0);
+                    }
                 }
-                if (input.equalsIgnoreCase("quit")) {
-                    break;
-                }
+
+                socket.close();
+            } catch (ConnectException e) {
+                System.out.println("Wrong port. Please try again.");
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter the port to connect: ");
+                port = scanner.nextInt();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -135,6 +153,7 @@ class ReadingThread extends Thread {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             String message;
+
             while ((message = reader.readLine()) != null) {
                 System.out.println("Received: " + message);
 
@@ -143,12 +162,12 @@ class ReadingThread extends Thread {
                     String filename = message.substring(9);
                     File_Received(filename, socket);
                 }
-                if (message.equals("quit")) {
-                    System.exit(0);
-                }
             }
 
             socket.close();
+        } catch (SocketException e) {
+            // Connection reset by peer, handle gracefully
+            System.exit(0);
         } catch (IOException e) {
             e.printStackTrace();
         }
