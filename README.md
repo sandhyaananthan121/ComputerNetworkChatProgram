@@ -9,8 +9,8 @@ Steps to run project:
 2. Navigate to the directory containing your Java source file using the command 'cd src'.
 3. In the first terminal, compile the Java file using the command 'javac SecureChatProgram.java'.
 4. In the second terminal, compile the Java file using the same command 'javac SecureChatProgram.java'.
-5. Now, in the first terminal, run 'java SecureChatProgram'.
-6. In the second terminal, run 'java SecureChatProgram'.
+5. Now, in the first terminal, run 'java SecureChatProgram Alice'.
+6. In the second terminal, run 'java SecureChatProgram Bob'.
 7. Both terminals will display a port number. Enter the same port number when prompted in both terminals.
 8. To establish a connection between Alice and Bob:
 9. In Alice's terminal, type the port number displayed in Bob's terminal and press Enter.
