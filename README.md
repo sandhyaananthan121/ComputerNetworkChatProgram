@@ -13,9 +13,9 @@ Steps to run project:
 6. In the second terminal, run 'java SecureChatProgram'.
 7. Both terminals will display a port number. Enter the same port number when prompted in both terminals.
 8. To establish a connection between Alice and Bob:
-    -In Alice's terminal, type the port number displayed in Bob's terminal and press Enter.
-    -In Bob's terminal, type the port number displayed in Alice's terminal and press Enter.
-9. Start typing your messages in either terminal. Messages typed in one terminal should appear in the other.
-10. To transfer a file from Alice to Bob:
-   -In Alice's terminal, type 'transfer filename' (replace 'filename' with the actual name of the file) and press Enter.
-11. To exit the program, type 'quit' in both terminals and press Enter.
+9. In Alice's terminal, type the port number displayed in Bob's terminal and press Enter.
+10. In Bob's terminal, type the port number displayed in Alice's terminal and press Enter.
+11. Start typing your messages in either terminal. Messages typed in one terminal should appear in the other.
+12. To transfer a file from Alice to Bob:
+13. In Alice's terminal, type 'transfer filename' (replace 'filename' with the actual name of the file) and press Enter.
+14. To exit the program, type 'quit' in both terminals and press Enter.
