@@ -51,7 +51,7 @@ class WritingThread extends Thread {
                     String filename = input.substring(9);
                     transferFile(filename, socket);
                 }
-                if (input.equalsIgnoreCase("quit")) {
+                if ("quit".equalsIgnoreCase(input)) {
                     break;
                 }
             }
@@ -105,7 +105,7 @@ class ReadingThread extends Thread {
                     String filename = message.substring(9);
                     receiveFile(filename, socket);
                 }
-                if (message.equals("quit")) {
+                if ("quit".equals(message)) {
                     System.exit(0);
                 }
             }
